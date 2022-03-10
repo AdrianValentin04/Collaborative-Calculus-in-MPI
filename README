@@ -1,0 +1,50 @@
+             ________  ________  __       __   ______          ______        
+            /        |/        |/  \     /  | /      \        /      \       
+            $$$$$$$$/ $$$$$$$$/ $$  \   /$$ |/$$$$$$  |      /$$$$$$  |      
+               $$ |   $$ |__    $$$  \ /$$$ |$$ |__$$ |      $$ ___$$ |      
+               $$ |   $$    |   $$$$  /$$$$ |$$    $$ |        /   $$<       
+               $$ |   $$$$$/    $$ $$ $$/$$ |$$$$$$$$ |       _$$$$$  |      
+               $$ |   $$ |_____ $$ |$$$/ $$ |$$ |  $$ |      /  \__$$ |      
+               $$ |   $$       |$$ | $/  $$ |$$ |  $$ |      $$    $$/       
+               $$/    $$$$$$$$/ $$/      $$/ $$/   $$/        $$$$$$/        
+                                                                                     
+                                                                 
+                                                                 
+Student : Gheorghe Adrian-Valentin
+Grupa : 331CB
+
+================================ Task 1 =======================================
+
+    Pentru rezolvarea task-ului 1 am ales sa salvez topologia folosind niste
+variabile pe care fiecare proces le va popula cu informatiile obtinute.
+Aceste variabile sunt un vector noWorkers, ce stocheaza numarul de workeri
+pe care ii are fiecare coordonator in parte, workers, ce este o matrice
+in care sunt stocate rank urile fiecarui worker al fiecarui coordonator si un
+intreg rankPersonalCoord, ce salveaza rank-ul coordonatorului procesului curent
+(este folosit de workeri). Primul pas a fost ca fiecare coordonator sa isi 
+citeasca folderul de input personal pentru a afla cati workeri are si care
+sunt acestia. Dupa aceea, coordonatorii isi trimit unul altuia informatiile 
+citite din fisierul de cluster personal. Al doilea pas consta in trimiterea,
+folosind MPI_Send, a informatiilor stocate in cele 2 variabile amintite mai sus
+catre workerii personali. In final, fiecare proces isi afiseaza topologia asa
+cum au primit-o.
+
+================================ Task 2 =======================================
+
+    La task-ul 2 am declarat un vector v, de k elemente, cu k dat ca parametru.
+Procesul 0 initializeaza vectorul dupa regula v[i] = i, apoi il trimite si
+celorlalti coordonatori. Dupa aceea, fiecare coordonator va calcula indicii pe
+intre care fiecare worker al lor va lucra, apoi le trimite workerilor vectorul
+si indicii personali. Acestia din urma preiau informatiile date si dubleaza
+elementele ce le-au fost alocate. In final, workerii trimit bucata lor facuta
+catre coordonatorii lor. In final, coordonatorii isi trimit bucatile la
+coordonatorul 0, care le va afisa.
+
+
+================================ Task 3 =======================================
+    
+    Bonusul se bazeaza foarte mult pe cele 2 subpuncte de mai sus, insa am avut
+grija ca procesul 0 sa nu comunice cu procesul 1, decat prin intermediul lui 2.
+Astfel, am modificat doar in 3 locuri ale codului, si anume unde isi trimit
+coordonatorii topologia, unde procesul 0 le trimite celorlalti vectorul si unde
+acesta primeste bucatile calculate de la ceilalti coordonatori.
